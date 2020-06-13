@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "313681601193",
+    "firebase_url": "https://batchat-523a3.firebaseio.com",
+    "project_id": "batchat-523a3",
+    "storage_bucket": "batchat-523a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:313681601193:android:ac4a434f061f861400ffb8",
+        "android_client_info": {
+          "package_name": "ru.batura.stat.batchat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "313681601193-c77c2op8k3aa3phs67eoi7teh7qaduga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.batura.stat.batchat",
+            "certificate_hash": "e018ef19b39e7e8b3b13b5c9592fe70f5e111c22"
+          }
+        },
+        {
+          "client_id": "313681601193-r1l3ljaub74qvtc8h21p1jdiq5s5vouu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd3mljBiZB_U4Ot8sYPsQSYqnqnJaXnmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "313681601193-r1l3ljaub74qvtc8h21p1jdiq5s5vouu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
