@@ -1,21 +1,23 @@
-package ru.batura.stat.batchat.ui.main
+package ru.batura.stat.batchat.ui.chat
 
-import android.app.Application
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import dagger.hilt.android.AndroidEntryPoint
+import com.google.firebase.auth.FirebaseUser
 import ru.batura.stat.batchat.repository.IRepository
-import ru.batura.stat.batchat.repository.Repository
-import javax.inject.Inject
 
 class ChatViewModel @ViewModelInject constructor(private val repository: IRepository) : ViewModel() {
 
-    val isLogged = repository.isLogged()
+    val currentUser = repository.getCurrentUser()
+
 
     init {
         print("intt")
 
+    }
+
+    fun  sendMessage(text:String, user: FirebaseUser, url: String? ) {
+        repository.
     }
 
     /**

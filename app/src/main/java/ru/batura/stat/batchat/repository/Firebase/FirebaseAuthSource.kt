@@ -5,15 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuth.AuthStateListener
+import com.google.firebase.auth.FirebaseUser
 import javax.inject.Inject
 
 interface IFirebaseAuth {
     fun isLogged(): LiveData<Boolean?>
     fun addListner()
     fun removeListner()
+    fun getCurrentUser(): FirebaseUser?
 }
 
 class FirebaseAuthSource @Inject constructor() : IFirebaseAuth {
+
+    private var currUser: FirebaseUser? = null
 
     private val firebaseAuth: FirebaseAuth by lazy {
         FirebaseAuth.getInstance()
@@ -24,6 +28,7 @@ class FirebaseAuthSource @Inject constructor() : IFirebaseAuth {
         if (user == null) { // User is signed in
             isLogging.value = false
         } else { // User is signed out
+            currUser = user
             isLogging.value = true
         }
     }
@@ -46,7 +51,11 @@ class FirebaseAuthSource @Inject constructor() : IFirebaseAuth {
         firebaseAuth.removeAuthStateListener(mAuthStateListener!!)
     }
 
-//    fun isLogged(): LiveData<Boolean> {
+    override fun getCurrentUser(): FirebaseUser? {
+        return currUser
+    }
+
+    //    fun isLogged(): LiveData<Boolean> {
 //
 //        mAuthStateListener = AuthStateListener { firebaseAuth ->
 //            val user = firebaseAuth.currentUser

@@ -7,7 +7,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.firebase.ui.auth.AuthUI
 import dagger.hilt.android.AndroidEntryPoint
-import ru.batura.stat.batchat.ui.main.ChatFragment
+import ru.batura.stat.batchat.ui.chat.ChatFragment
 import java.util.*
 
 @AndroidEntryPoint
