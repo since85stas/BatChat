@@ -82,7 +82,10 @@ dependencies {
     // FirebaseUI for Firebase Auth
     implementation 'com.firebaseui:firebase-ui-auth:6.2.1'
 
+    def hilt_jetpack = "1.0.0-alpha01"
     // Hilt depend
     implementation "com.google.dagger:hilt-android:$hilt_version"
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hilt_jetpack"
+    kapt "androidx.hilt:hilt-compiler:$hilt_jetpack"
 }

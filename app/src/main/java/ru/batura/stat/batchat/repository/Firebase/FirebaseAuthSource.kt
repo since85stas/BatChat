@@ -21,11 +21,15 @@ class FirebaseAuthSource @Inject constructor() : IFirebaseAuth {
 
     private var mAuthStateListener: AuthStateListener? = AuthStateListener { firebaseAuth ->
         val user = firebaseAuth.currentUser
-        if (user != null) { // User is signed in
+        if (user == null) { // User is signed in
             isLogging.value = false
         } else { // User is signed out
             isLogging.value = true
         }
+    }
+
+    init {
+        addListner()
     }
 
     private var isLogging: MutableLiveData<Boolean?> = MutableLiveData(null)
