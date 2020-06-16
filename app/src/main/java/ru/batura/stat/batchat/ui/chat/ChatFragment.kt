@@ -8,9 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.chat_fragment.*
 import ru.batura.stat.batchat.R
+import ru.batura.stat.batchat.repository.Firebase.FirebaseDataSource
+import ru.batura.stat.batchat.repository.data.ChatMessage
 
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
@@ -21,17 +25,31 @@ class ChatFragment : Fragment() {
         fun newInstance() = ChatFragment()
     }
 
+
     private lateinit var chatViewModel: ChatViewModel
 
+    /**
+     * создаем вью
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
+
+        // получаем модель
+        chatViewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
+
         return inflater.inflate(R.layout.chat_fragment, container, false)
     }
 
+    /**
+     * после создания вью, добавляем слушатели
+     */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        chatViewModel = ViewModelProvider(this).get(ChatViewModel::class.java)
+//        val database = FirebaseDatabase.getInstance()
+//        dataRef = database.getReference("messages")
+
+
 
         // Enable Send button when there's text to send
         messageEditText.addTextChangedListener(object : TextWatcher {
@@ -58,6 +76,10 @@ class ChatFragment : Fragment() {
 
             override fun afterTextChanged(editable: Editable) {}
         })
+
+        sendButton.setOnClickListener {
+            chatViewModel.sendMessage(messageEditText.text.toString(), chatViewModel.currentUser.value!!, null)
+        }
     }
 
     private fun addObservers() {

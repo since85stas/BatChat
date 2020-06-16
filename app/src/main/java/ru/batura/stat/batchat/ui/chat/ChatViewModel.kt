@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseUser
 import ru.batura.stat.batchat.repository.IRepository
+import ru.batura.stat.batchat.repository.data.ChatMessage
 
 class ChatViewModel @ViewModelInject constructor(private val repository: IRepository) : ViewModel() {
 
@@ -16,8 +17,12 @@ class ChatViewModel @ViewModelInject constructor(private val repository: IReposi
 
     }
 
+    /**
+     *  посылаем сообщение в репозиторий
+     */
     fun  sendMessage(text:String, user: FirebaseUser, url: String? ) {
-        repository.
+        val chatMessage = ChatMessage(user.displayName, text, url)
+        repository.pushMessage(chatMessage)
     }
 
     /**

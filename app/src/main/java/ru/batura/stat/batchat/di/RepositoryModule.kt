@@ -12,4 +12,5 @@ import ru.batura.stat.batchat.repository.Repository
 abstract class RepositoryModule {
 
     @Binds abstract fun bindRepos(repository: Repository): IRepository
+
 }

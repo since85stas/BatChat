@@ -37,6 +37,9 @@ class MainActivity : AppCompatActivity() {
         addObservers()
     }
 
+    /**
+     * добавляем слушатели на вьюмодель
+     */
     private fun addObservers() {
         mainViewModel.isLogging.observe(this, Observer {
             Log.d(TAG, "logg")
@@ -48,6 +51,9 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * запускаем активити со идентефикацией пользователя
+     */
     private fun openLoggingActivity() {
         startActivityForResult(
             AuthUI.getInstance()
