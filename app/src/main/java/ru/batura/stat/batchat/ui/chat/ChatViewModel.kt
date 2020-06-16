@@ -1,6 +1,8 @@
 package ru.batura.stat.batchat.ui.chat
 
 import androidx.hilt.lifecycle.ViewModelInject
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.auth.FirebaseUser
@@ -11,6 +13,11 @@ class ChatViewModel @ViewModelInject constructor(private val repository: IReposi
 
     val currentUser = repository.getCurrentUser()
 
+    val messagesFromFB = repository.getMessage()
+
+
+
+//    var messagesListLive: MutableLiveData<MutableList<ChatMessage>> = MutableLiveData(messageList)
 
     init {
         print("intt")

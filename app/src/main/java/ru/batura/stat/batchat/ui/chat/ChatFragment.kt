@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,6 +29,10 @@ class ChatFragment : Fragment() {
 
 
     private lateinit var chatViewModel: ChatViewModel
+
+    private lateinit var chatAdapter: MessageAdapter
+
+    private var messageList: MutableList<ChatMessage> = mutableListOf()
 
     /**
      * создаем вью
@@ -48,6 +54,14 @@ class ChatFragment : Fragment() {
 
 //        val database = FirebaseDatabase.getInstance()
 //        dataRef = database.getReference("messages")
+//        val list = ArrayList<ChatMessage>()
+//        chatAdapter = MessageAdapter(requireContext(), R.layout.item_message, list)
+        val viewManager = LinearLayoutManager(requireContext())
+
+        messageListView.layoutManager = viewManager
+
+//        createAdapter()
+//        messageListView.adapter = chatAdapter
 
 
 
@@ -82,14 +96,28 @@ class ChatFragment : Fragment() {
         }
     }
 
-    private fun addObservers() {
-
+    private fun createAdapter() {
+        val chatAdapter = ChatAdapter()
+        chatAdapter.submitList(messageList)
+        messageListView.adapter = chatAdapter
     }
 
-//    override fun onResume() {
-//        super.onResume()
-////        addObservers()
-//    }
+    private fun addObservers() {
+
+        // observing incoming messages
+        chatViewModel.messagesFromFB.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+//                chatAdapter.add(it)
+                messageList.add(it)
+                createAdapter()
+            }
+        })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        addObservers()
+    }
 
 
 }

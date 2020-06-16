@@ -13,6 +13,7 @@ class Repository @Inject constructor() : IRepository {
     @Inject lateinit var firebaseAuthSource: FirebaseAuthSource
     @Inject lateinit var firebaseDataSource: FirebaseDataSource
 
+    //---------------------------AUTH PART----------------------------------------------------------
     override fun isLogged(): LiveData<Boolean?> {
         return firebaseAuthSource.isLogged()
     }
@@ -29,7 +30,12 @@ class Repository @Inject constructor() : IRepository {
         return firebaseAuthSource.getCurrentUser()
     }
 
+    //-----------------------------MESSAGE PART-----------------------------------------------------
     override fun pushMessage(chatMessage: ChatMessage) {
        firebaseDataSource.pushMessage(chatMessage)
+    }
+
+    override fun getMessage(): LiveData<ChatMessage?> {
+        return firebaseDataSource.getMessage()
     }
 }
