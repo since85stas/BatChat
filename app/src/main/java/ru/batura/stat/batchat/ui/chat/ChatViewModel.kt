@@ -15,6 +15,7 @@ class ChatViewModel @ViewModelInject constructor(private val repository: IReposi
 
     val messagesFromFB = repository.getMessage()
 
+    val mesagesFromDB  = repository.getMessages()
 
 
 //    var messagesListLive: MutableLiveData<MutableList<ChatMessage>> = MutableLiveData(messageList)
@@ -29,7 +30,10 @@ class ChatViewModel @ViewModelInject constructor(private val repository: IReposi
      */
     fun  sendMessage(text:String, user: FirebaseUser, url: String? ) {
         val chatMessage = ChatMessage(user.displayName, text, url)
+
         repository.pushMessage(chatMessage)
+
+        repository.insertMessage(chatMessage)
     }
 
     /**

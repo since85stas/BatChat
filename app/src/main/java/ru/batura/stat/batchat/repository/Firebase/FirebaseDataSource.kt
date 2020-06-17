@@ -30,7 +30,7 @@ class FirebaseDataSource @Inject constructor() : IFirebase{
 
     init {
         val database = FirebaseDatabase.getInstance()
-        dataRef = database.getReference("messages")
+        dataRef = database.getReference().child("messages")
 
         attachDatabaseReadListener()
     }
@@ -57,7 +57,7 @@ class FirebaseDataSource @Inject constructor() : IFirebase{
                         ChatMessage::class.java
                     )
 //                    mMessageAdapter.add(friendlyMessage)
-                    messageLive.postValue(friendlyMessage)
+                    messageLive.value = friendlyMessage
                 }
 
                 override fun onChildChanged(

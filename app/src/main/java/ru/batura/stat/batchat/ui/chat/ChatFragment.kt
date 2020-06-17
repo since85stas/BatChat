@@ -2,6 +2,8 @@ package ru.batura.stat.batchat.ui.chat
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.InputFilter
+import android.text.InputFilter.LengthFilter
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
@@ -10,16 +12,15 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.chat_fragment.*
 import ru.batura.stat.batchat.R
-import ru.batura.stat.batchat.repository.Firebase.FirebaseDataSource
 import ru.batura.stat.batchat.repository.data.ChatMessage
 
 @AndroidEntryPoint
 class ChatFragment : Fragment() {
+
+    private val DEFAULT_MSG_LENGTH_LIMIT = 1000
 
     private val TAG = ChatFragment::class.simpleName
 
@@ -63,7 +64,7 @@ class ChatFragment : Fragment() {
 //        createAdapter()
 //        messageListView.adapter = chatAdapter
 
-
+        messageEditText.setFilters(arrayOf<InputFilter>(LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)))
 
         // Enable Send button when there's text to send
         messageEditText.addTextChangedListener(object : TextWatcher {
@@ -81,7 +82,7 @@ class ChatFragment : Fragment() {
                 i1: Int,
                 i2: Int
             ) {
-                if (charSequence.toString().trim { it <= ' ' }.length > 0) {
+                if (charSequence.toString().trim { it <= ' ' }.isNotEmpty()) {
                     sendButton.setEnabled(true)
                 } else {
                     sendButton.setEnabled(false)
@@ -92,8 +93,13 @@ class ChatFragment : Fragment() {
         })
 
         sendButton.setOnClickListener {
-            chatViewModel.sendMessage(messageEditText.text.toString(), chatViewModel.currentUser.value!!, null)
+            chatViewModel.sendMessage(messageEditText.text.toString(),
+                chatViewModel.currentUser.value!!,
+                null)
+
+            messageEditText.setText("")
         }
+
     }
 
     private fun createAdapter() {
@@ -105,12 +111,20 @@ class ChatFragment : Fragment() {
     private fun addObservers() {
 
         // observing incoming messages
-        chatViewModel.messagesFromFB.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-//                chatAdapter.add(it)
-                messageList.add(it)
-                createAdapter()
+//        chatViewModel.messagesFromFB.observe(viewLifecycleOwner, Observer {
+//            if (it != null) {
+////                chatAdapter.add(it)
+//                messageList.add(it)
+//                createAdapter()
+//            }
+//        })
+
+        chatViewModel.mesagesFromDB.observe(viewLifecycleOwner, Observer {
+            messageList = mutableListOf()
+            for (mes: ChatMessage in it) {
+                messageList.add(mes)
             }
+            createAdapter()
         })
     }
 
