@@ -22,6 +22,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
+import ru.batura.stat.batchat.repository.data.Chat
+import ru.batura.stat.batchat.repository.data.ChatUser
 import ru.batura.stat.batchat.repository.data.ChatMessage
 
 
@@ -32,7 +34,7 @@ import ru.batura.stat.batchat.repository.data.ChatMessage
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities =[ChatMessage::class], version = 1, exportSchema = false)
+@Database(entities =[ChatMessage::class, ChatUser::class, Chat::class], version = 3, exportSchema = false)
 abstract class ChatDatabase : RoomDatabase() {
 
     /**

@@ -110,22 +110,21 @@ class ChatFragment : Fragment() {
 
     private fun addObservers() {
 
-        // observing incoming messages
-//        chatViewModel.messagesFromFB.observe(viewLifecycleOwner, Observer {
-//            if (it != null) {
-////                chatAdapter.add(it)
-//                messageList.add(it)
-//                createAdapter()
-//            }
-//        })
-
-        chatViewModel.mesagesFromDB.observe(viewLifecycleOwner, Observer {
-            messageList = mutableListOf()
-            for (mes: ChatMessage in it) {
-                messageList.add(mes)
+//         observing incoming messages
+        chatViewModel.messagesFromFB.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                messageList.add(it)
+                createAdapter()
             }
-            createAdapter()
         })
+
+//        chatViewModel.mesagesFromDB.observe(viewLifecycleOwner, Observer {
+//            messageList = mutableListOf()
+//            for (mes: ChatMessage in it) {
+//                messageList.add(mes)
+//            }
+//            createAdapter()
+//        })
     }
 
     override fun onResume() {
