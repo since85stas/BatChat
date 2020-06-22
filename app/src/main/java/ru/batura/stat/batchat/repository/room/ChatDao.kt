@@ -12,7 +12,7 @@ import ru.batura.stat.batchat.repository.data.ChatUser
 interface ChatDao {
 
     @Insert
-    fun insertMessage(message: ChatMessage)
+    suspend fun insertMessage(message: ChatMessage): Long
 
     @Query("SELECT * FROM message_table ")
     fun getMessages(): LiveData<List<ChatMessage>>

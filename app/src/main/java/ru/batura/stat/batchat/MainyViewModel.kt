@@ -4,6 +4,8 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import ru.batura.stat.batchat.repository.IRepository
+import ru.batura.stat.batchat.repository.Repository
+import ru.batura.stat.batchat.repository.integrator.IIntegrator
 
 class MainViewModel @ViewModelInject constructor(private val repository: IRepository): ViewModel() {
 

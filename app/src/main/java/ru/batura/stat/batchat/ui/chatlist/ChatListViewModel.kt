@@ -2,12 +2,12 @@ package ru.batura.stat.batchat.ui.chatlist
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import ru.batura.stat.batchat.repository.IRepository
+import ru.batura.stat.batchat.repository.integrator.IIntegrator
 
 
-class ChatListViewModel @ViewModelInject constructor(private val repository: IRepository): ViewModel() {
+class ChatListViewModel @ViewModelInject constructor(private val integrator: IIntegrator): ViewModel() {
 
-    val messagesLive = repository.getMessages()
+    val messagesLive = integrator.getMessages()
 
 
 }

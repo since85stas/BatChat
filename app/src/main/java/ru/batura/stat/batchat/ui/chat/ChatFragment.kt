@@ -83,7 +83,8 @@ class ChatFragment : Fragment() {
 
         sendButton.setOnClickListener {
             chatViewModel.sendMessage(messageEditText.text.toString(),
-                chatViewModel.currentUser.value!!,
+//                chatViewModel.currentUser.value!!,
+                null,
                 null)
 
             messageEditText.setText("")
@@ -106,20 +107,13 @@ class ChatFragment : Fragment() {
     private fun addObservers() {
 
 //         observing incoming messages
-        chatViewModel.messagesFromFB.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                messageList.add(it)
-                createAdapter()
-            }
-        })
-
-//        chatViewModel.mesagesFromDB.observe(viewLifecycleOwner, Observer {
-//            messageList = mutableListOf()
-//            for (mes: ChatMessage in it) {
-//                messageList.add(mes)
+//        chatViewModel.messagesFromFB.observe(viewLifecycleOwner, Observer {
+//            if (it != null) {
+//                messageList.add(it)
+//                createAdapter()
 //            }
-//            createAdapter()
 //        })
+
     }
 
     override fun onResume() {

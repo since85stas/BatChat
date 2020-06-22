@@ -1,11 +1,13 @@
 package ru.batura.stat.batchat.repository
 
-import ru.batura.stat.batchat.repository.Firebase.IFirebase
-import ru.batura.stat.batchat.repository.Firebase.IFirebaseAuth
-import ru.batura.stat.batchat.repository.room.ChatDao
+import androidx.lifecycle.LiveData
+import ru.batura.stat.batchat.repository.data.ChatMessage
 
-interface IRepository: IFirebaseAuth, IFirebase, ChatDao {
+interface IRepository {
 
+    fun sendMessage(chatMessage: ChatMessage)
 
+    fun recieveMessage(): LiveData<ChatMessage>
 
+    fun isLogged(): LiveData<Boolean?>
 }
