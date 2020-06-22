@@ -31,8 +31,6 @@ class ChatFragment : Fragment() {
 
     private lateinit var chatViewModel: ChatViewModel
 
-    private lateinit var chatAdapter: MessageAdapter
-
     private var messageList: MutableList<ChatMessage> = mutableListOf()
 
     /**
@@ -50,19 +48,10 @@ class ChatFragment : Fragment() {
     /**
      * после создания вью, добавляем слушатели
      */
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-//        val database = FirebaseDatabase.getInstance()
-//        dataRef = database.getReference("messages")
-//        val list = ArrayList<ChatMessage>()
-//        chatAdapter = MessageAdapter(requireContext(), R.layout.item_message, list)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val viewManager = LinearLayoutManager(requireContext())
 
         messageListView.layoutManager = viewManager
-
-//        createAdapter()
-//        messageListView.adapter = chatAdapter
 
         messageEditText.setFilters(arrayOf<InputFilter>(LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)))
 
@@ -99,15 +88,21 @@ class ChatFragment : Fragment() {
 
             messageEditText.setText("")
         }
-
     }
 
+
+    /**
+     * creating message adapter
+     */
     private fun createAdapter() {
         val chatAdapter = ChatAdapter()
         chatAdapter.submitList(messageList)
         messageListView.adapter = chatAdapter
     }
 
+    /**
+     * adding observers for view models
+     */
     private fun addObservers() {
 
 //         observing incoming messages

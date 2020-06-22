@@ -23,7 +23,12 @@ interface ChatDao {
     @Query("SELECT * FROM chats_users_table WHERE chatId = :chatId")
     fun getChatUsers(chatId: Long): LiveData<List<ChatUser>>
 
+    @Insert()
+    fun insertChat(chat: Chat)
+
     @Query("SELECT * FROM chat_table")
     fun getChats(): LiveData<Chat>
+
+
 
 }

@@ -29,7 +29,12 @@ class ChatViewModel @ViewModelInject constructor(private val repository: IReposi
      *  посылаем сообщение в репозиторий
      */
     fun  sendMessage(text:String, user: FirebaseUser, url: String? ) {
-        val chatMessage = ChatMessage(user.displayName, text, url)
+        val chatMessage = ChatMessage(user.displayName,
+            text,
+            url,
+            true,
+            false,
+            0)
 
         repository.pushMessage(chatMessage)
 

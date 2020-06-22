@@ -3,6 +3,9 @@ package ru.batura.stat.batchat.repository.data
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+/**
+ * storing users in particular chat
+ */
 @Entity (tableName = "chats_users_table")
 data class ChatUser (
 

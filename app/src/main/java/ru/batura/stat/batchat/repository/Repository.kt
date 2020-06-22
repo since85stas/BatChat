@@ -9,7 +9,9 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.batura.stat.batchat.repository.Firebase.FirebaseAuthSource
 import ru.batura.stat.batchat.repository.Firebase.FirebaseDataSource
+import ru.batura.stat.batchat.repository.data.Chat
 import ru.batura.stat.batchat.repository.data.ChatMessage
+import ru.batura.stat.batchat.repository.data.ChatUser
 import ru.batura.stat.batchat.repository.room.ChatDao
 import javax.inject.Inject
 
@@ -75,4 +77,27 @@ class Repository @Inject constructor() : IRepository {
     override fun getMessages(): LiveData<List<ChatMessage>> {
         return roomDataSource.getMessages()
     }
+    
+    //--------------------------CHAT USERS PART----------------------------------------------------
+    override fun insertChatUser(chatUser: ChatUser) {
+        ioScope.launch { 
+            roomDataSource.insertChatUser(chatUser)
+        }
+    }
+
+    override fun getChatUsers(chatId: Long): LiveData<List<ChatUser>> {
+        return roomDataSource.getChatUsers(chatId)
+    }
+
+    //--------------------------CHAT PART---------------------------------------------------------
+    override fun insertChat(chat: Chat) {
+        ioScope.launch { 
+            roomDataSource.insertChat(chat)
+        }
+    }
+
+    override fun getChats(): LiveData<Chat> {
+        return roomDataSource.getChats()
+    }
+    
 }
