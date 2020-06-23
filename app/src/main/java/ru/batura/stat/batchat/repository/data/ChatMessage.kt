@@ -8,6 +8,8 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "message_table")
 data class ChatMessage (
+    var author: String = "user",
+
     var name: String? = null,
 
     var text: String? = null,

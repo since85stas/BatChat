@@ -33,11 +33,14 @@ class Integrator @Inject constructor() :
      */
     private val ioScope = CoroutineScope(Dispatchers.IO + repositoryJob)
 
-    @Inject lateinit var firebaseAuthSource: FirebaseAuthSource
+    @Inject
+    lateinit var firebaseAuthSource: FirebaseAuthSource
 
-    @Inject lateinit var firebaseDataSource: FirebaseDataSource
+    @Inject
+    lateinit var firebaseDataSource: FirebaseDataSource
 
-    @Inject lateinit var roomDataSource: ChatDao
+    @Inject
+    lateinit var roomDataSource: ChatDao
 
     //---------------------------AUTH PART----------------------------------------------------------
     override fun isLogged(): LiveData<Boolean?> {
@@ -58,7 +61,7 @@ class Integrator @Inject constructor() :
 
     //-----------------------------MESSAGE PART FIRE------------------------------------------------
     override fun pushMessage(chatMessage: ChatMessage) {
-       firebaseDataSource.pushMessage(chatMessage)
+        firebaseDataSource.pushMessage(chatMessage)
     }
 
     override fun getMessage(): LiveData<ChatMessage?> {
@@ -67,19 +70,19 @@ class Integrator @Inject constructor() :
 
     //---------------------------MESSAGE ROOM PART--------------------------------------------------
     override suspend fun insertMessage(message: ChatMessage): Long {
-            val result = ioScope.async {
-                roomDataSource.insertMessage(message)
-            }
+        val result = ioScope.async {
+            roomDataSource.insertMessage(message)
+        }
         return result.await()
     }
 
     override fun getMessages(): LiveData<List<ChatMessage>> {
         return roomDataSource.getMessages()
     }
-    
+
     //--------------------------CHAT USERS PART----------------------------------------------------
     override fun insertChatUser(chatUser: ChatUser) {
-        ioScope.launch { 
+        ioScope.launch {
             roomDataSource.insertChatUser(chatUser)
         }
     }
@@ -90,7 +93,7 @@ class Integrator @Inject constructor() :
 
     //--------------------------CHAT PART---------------------------------------------------------
     override fun insertChat(chat: Chat) {
-        ioScope.launch { 
+        ioScope.launch {
             roomDataSource.insertChat(chat)
         }
     }
@@ -98,5 +101,5 @@ class Integrator @Inject constructor() :
     override fun getChats(): LiveData<Chat> {
         return roomDataSource.getChats()
     }
-    
+
 }

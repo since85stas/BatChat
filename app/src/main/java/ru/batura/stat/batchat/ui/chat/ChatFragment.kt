@@ -28,10 +28,11 @@ class ChatFragment : Fragment() {
         fun newInstance() = ChatFragment()
     }
 
-
     private lateinit var chatViewModel: ChatViewModel
 
-    private var messageList: MutableList<ChatMessage> = mutableListOf()
+//    private var messageList: MutableList<ChatMessage> = mutableListOf()
+
+    val chatAdapter = ChatAdapter()
 
     /**
      * создаем вью
@@ -52,6 +53,8 @@ class ChatFragment : Fragment() {
         val viewManager = LinearLayoutManager(requireContext())
 
         messageListView.layoutManager = viewManager
+
+        createAdapter()
 
         messageEditText.setFilters(arrayOf<InputFilter>(LengthFilter(DEFAULT_MSG_LENGTH_LIMIT)))
 
@@ -83,9 +86,9 @@ class ChatFragment : Fragment() {
 
         sendButton.setOnClickListener {
             chatViewModel.sendMessage(messageEditText.text.toString(),
-//                chatViewModel.currentUser.value!!,
-                null,
-                null)
+                chatViewModel.currentUser.value!!,
+                null
+                )
 
             messageEditText.setText("")
         }
@@ -96,8 +99,8 @@ class ChatFragment : Fragment() {
      * creating message adapter
      */
     private fun createAdapter() {
-        val chatAdapter = ChatAdapter()
-        chatAdapter.submitList(messageList)
+//        val chatAdapter = ChatAdapter()
+//        chatAdapter.submitList(messageList)
         messageListView.adapter = chatAdapter
     }
 
@@ -107,12 +110,12 @@ class ChatFragment : Fragment() {
     private fun addObservers() {
 
 //         observing incoming messages
-//        chatViewModel.messagesFromFB.observe(viewLifecycleOwner, Observer {
-//            if (it != null) {
-//                messageList.add(it)
-//                createAdapter()
-//            }
-//        })
+        chatViewModel.messagesLive.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+
+                chatAdapter.submitList(it)
+            }
+        })
 
     }
 

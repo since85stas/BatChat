@@ -10,50 +10,35 @@ import ru.batura.stat.batchat.repository.data.ChatMessage
 
 class ChatViewModel @ViewModelInject constructor(val repository: Repository) : ViewModel() {
 
-//    val currentUser = integrator.getCurrentUser()
+    val currentUser = repository.getCurrentUser()
 //
 //    val messagesFromFB = integrator.getMessage()
 //
-//    val mesagesFromDB  = integrator.getMessages()
+    val messagesLive  = repository.recieveMessages()
 
 
 //    var messagesListLive: MutableLiveData<MutableList<ChatMessage>> = MutableLiveData(messageList)
 
+
+
     init {
         print("intt")
-
     }
 
     /**
      *  посылаем сообщение в репозиторий
      */
     fun  sendMessage(text:String, user: FirebaseUser?, url: String? ) {
-        val chatMessage = ChatMessage(null,
+        val chatMessage = ChatMessage(user!!.displayName!!,
+            user.uid,
             text,
             url,
             true,
             false,
             0)
 
-        repository
-            .sendMessage(chatMessage)
-//
-//        integrator.insertMessage(chatMessage)
+        repository.sendMessage(chatMessage)
     }
 
-    /**
-     * фабрика для создания модели
-     */
-//    class Factory(
-//        private val integrator: IIntegrator
-//    ) : ViewModelProvider.Factory {
-//        @Suppress("unchecked_cast")
-//        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-//            if (modelClass.isAssignableFrom(ChatViewModel::class.java)) {
-//                return ChatViewModel(integrator) as T
-//            }
-//            throw IllegalArgumentException("Unknown ViewModel class")
-//        }
-//    }
 
 }

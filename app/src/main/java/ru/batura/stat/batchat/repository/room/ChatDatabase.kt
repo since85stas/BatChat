@@ -34,7 +34,7 @@ import ru.batura.stat.batchat.repository.data.ChatMessage
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
  */
-@Database(entities =[ChatMessage::class, ChatUser::class, Chat::class], version = 3, exportSchema = false)
+@Database(entities =[ChatMessage::class, ChatUser::class, Chat::class], version = 4, exportSchema = false)
 abstract class ChatDatabase : RoomDatabase() {
 
     /**
